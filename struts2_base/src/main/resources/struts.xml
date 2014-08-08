@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+    <constant name="struts.devMode" value="false" />
+    <constant name="struts.custom.i18n.resources" value="global"/>  
+    <package name="basicstruts2" extends="struts-default">
+    	<interceptors>
+			<interceptor-stack name="appDefaultStack">
+				<interceptor-ref name="defaultStack">
+					<param name="exception.logEnabled">true</param>
+					<param name="exception.logLevel">ERROR</param>
+				</interceptor-ref>
+			</interceptor-stack>
+			<interceptor name="custominterceptor" class="com.cn.zhanglei.interceptor.CustomInterceptor"></interceptor>
+			<interceptor name="customotherinterceptor" class="com.cn.zhanglei.interceptor.CustomInterceptorOther"></interceptor>
+		</interceptors>
+ 
+		<default-interceptor-ref name="appDefaultStack" />
+    
+        <global-results>
+        	<result name="zhangleierror">/zhangleierror.jsp</result>
+        	<result name="error">/error.jsp</result>
+        </global-results>
+	    <global-exception-mappings>
+			<exception-mapping exception="com.cn.zhanglei.common.exception.ZhangleiException" result="zhangleierror" />
+			<exception-mapping exception="java.lang.Exception" result="error" />
+		</global-exception-mappings>
+        <action name="index">
+        	<result>/index.jsp</result>
+        </action>
+        
+        <action name="hello" class="com.cn.zhanglei.helloworld.action.HelloWorldAction" method="execute">
+        	<result name="success">/HelloWorld.jsp</result>
+        </action>
+        
+        <action name="register" class="com.cn.zhanglei.register.action.RegisterAction" method="execute">
+        	<interceptor-ref name="timer" />
+			<interceptor-ref name="logger" />
+			<interceptor-ref name="defaultStack">
+				<param name="exception.logEnabled">true</param>
+				<param name="exception.logLevel">ERROR</param>
+			</interceptor-ref>
+			<interceptor-ref name="custominterceptor" />
+			<interceptor-ref name="customotherinterceptor" />
+            <result name="success">/thankyou.jsp</result>
+            <result name="input">/register.jsp</result>
+        </action>
+        
+        <action name="registerInput" class="com.cn.zhanglei.register.action.RegisterAction" method="input">
+        	<result name="input">/register.jsp</result>
+        </action>
+
+		<action name="commonexception" class="com.cn.zhanglei.helloworld.action.HelloWorldAction" method="throwException">
+			<result name="success">/HelloWorld.jsp</result>
+		</action>
+
+		<action name="zlexception" class="com.cn.zhanglei.register.action.RegisterAction" method="throwZhangleiException">
+			<exception-mapping exception="com.cn.zhanglei.common.exception.ZhangleiException" result="login" />
+			<result>/register.jsp</result>
+			<result name="login">/login.jsp</result>
+		</action>
+
+		<!-- form tags  -->
+		<action name="formtag_index">
+			<result>/form-tag/index.jsp</result>
+		</action>
+
+	    <action name="formtag_edit" class="com.cn.zhanglei.formtag.action.EditAction" method="input">
+	    	<result name="input">/form-tag/edit.jsp</result>
+	    </action>
+	    
+	    <action name="formtag_save" class="com.cn.zhanglei.formtag.action.EditAction" method="execute">
+	        <result name="input">/form-tag/edit.jsp</result>
+	    	<result name="success">/form-tag/thankyou.jsp</result>
+	    </action>
+
+		<action name="*show" class="com.cn.zhanglei.formtag.action.ManyAction" method="{1}">
+	        <result name="zl">/zhangleierror.jsp</result>
+	    	<result name="usual">/error.jsp</result>
+	    	<result name="success">/form-tag/index.jsp</result>
+	    </action>
+
+		<action name="otheredit" class="editAction" method="input">
+		    <result name="input">/form-tag/edit.jsp</result>
+		</action>
+
+    </package>
+</struts>
