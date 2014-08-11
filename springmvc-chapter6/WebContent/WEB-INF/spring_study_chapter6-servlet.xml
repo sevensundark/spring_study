@@ -52,5 +52,18 @@
     <bean class="controller.paramtype.HeaderValueTypeController"/>
     <bean class="controller.paramtype.ModelAttributeTypeController"/>
     <bean class="controller.paramtype.SessionAttributeController"/>
+
+	<bean class="controller.paramtype.WizardFormController">
+		<property name="pageViews">
+			<list>
+				<value>wizard/baseInfo</value>
+				<value>wizard/schoolInfo</value>
+				<value>wizard/workInfo</value>
+			</list>
+		</property>
+		<property name="successView" value="wizard/success" />
+		<property name="cancelView" value="wizard/cancel" />
+	</bean>
 	
+	<bean class="controller.paramtype.SpELValueTypeController"/>
 </beans>

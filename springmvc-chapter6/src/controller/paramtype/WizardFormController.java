@@ -1,6 +1,7 @@
 package controller.paramtype;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -52,7 +53,7 @@ public class WizardFormController {
 	@ModelAttribute
 	public void referenceData(
 			@RequestParam(value = "_page", defaultValue = "0") int currentPage,
-			HttpServletRequest request, Map model) {
+			HttpServletRequest request, Map<String, List<String>> model) {
 		if (getTargetPage(request, currentPage) == 1) { // 如果是填写学校信息页 需要学校类型信息
 			model.put("schoolTypeList", Arrays.asList("高中", "中专", "大学"));
 			return;
@@ -83,6 +84,7 @@ public class WizardFormController {
 			SessionStatus status) {
 		System.out.println(user);
 		status.setComplete();
+		System.out.println("cancelView---" + cancelView);
 		return cancelView;
 	}
 

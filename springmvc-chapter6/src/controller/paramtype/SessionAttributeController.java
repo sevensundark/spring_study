@@ -17,7 +17,8 @@ import org.springframework.web.context.request.WebRequest;
 public class SessionAttributeController {
 	@ModelAttribute("user")
 	// ② 如果模型数据中没有名字为user的对象，调用该方法并存储到模型数据中
-	public UserModel initUser() {
+	public UserModel initUser(WebRequest request) {
+		System.out.println("---------@ModelAttribute--------------");
 		return new UserModel();
 	}
 
