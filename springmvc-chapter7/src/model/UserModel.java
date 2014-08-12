@@ -1,7 +1,12 @@
 package model;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
 public class UserModel {
 
+	@NotNull(message="{username.not.empty}")
+	@Pattern(regexp = "^[a-zA-Z_]\\w{4,19}$", message = "用户名必须以字母下划线开头，可由字母数字下划线组成")
 	private String username;
 
 	private String password;

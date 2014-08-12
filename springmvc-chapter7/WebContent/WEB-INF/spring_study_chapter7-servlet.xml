@@ -11,6 +11,13 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
+ 	<!-- 以下 validator  ConversionService 在使用 mvc:annotation-driven 会 自动注册-->
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+        <property name="providerClass"  value="org.hibernate.validator.HibernateValidator"/>
+        <!-- 如果不加默认到 使用classpath下的 ValidationMessages.properties -->
+        <property name="validationMessageSource" ref="messageSource"/>
+    </bean>
+
 	<!-- ①注册ConversionService -->
 	<bean id="conversionService"
 		class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
@@ -33,6 +40,7 @@
  	<!-- ②使用ConfigurableWebBindingInitializer注册conversionService -->
 	<bean id="webBindingInitializer" class="org.springframework.web.bind.support.ConfigurableWebBindingInitializer">
 	    <property name="conversionService" ref="conversionService"/>
+	    <property name="validator" ref="validator"/>
 	</bean>
 
 	<!--Spring3.1开始的注解 HandlerMapping -->
@@ -58,8 +66,24 @@
 		<property name="prefix" value="/WEB-INF/jsp/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
+
+	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basename" value="classpath:messages"/>  
+        <property name="fileEncodings" value="utf-8"/>  
+        <property name="cacheSeconds" value="120"/>
+	</bean>
+	
+	<bean class="controller.SuccessController"/>
 	
 	<bean class="controller.HelloWorldController"/>
 	<bean class="controller.DataBinderTestController"/>
 	<bean class="controller.DataFormatTestController" />
+	
+	<bean class="controller.RegisterSimpleFormController" />
+	
+	
+	<bean class="controller.validate.HelloWorldController" />
+	<bean class="controller.validate.ValidatorAnnotationTestController" />
+	<bean class="controller.validate.MessageTestController" />
+	<bean class="controller.validate.MultiModelController" />
 </beans>
