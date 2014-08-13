@@ -1,0 +1,11 @@
+"rc_lnlnlite_mstdb
+dev_lnlnlite_mstdb"				lnln_admin				R4ae6w3rX7									
+								lnln_web				qU3hKf8rCY									
+								lnln_bat				T7zcXGmaie									
+								lnln_tool				F8iLgD9xBc									
+								lnln_ope				K7da2FLpN9									
+san70met90.database.windows.net
+
+
+
+http://gemantic.iteye.com/blog/1622799
