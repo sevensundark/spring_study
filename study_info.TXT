@@ -1,0 +1,6 @@
+﻿Mybatis (get starting)
+http://mybatis.github.io/mybatis-3/zh/getting-started.html
+
+缓存
+http://www.cnblogs.com/zemliu/archive/2013/08/05/3239014.html
+http://www.iteye.com/topic/1112327/
