@@ -1,0 +1,18 @@
+package dao;
+
+import org.mybatis.spring.support.SqlSessionDaoSupport;
+
+import entity.UserTInfo;
+
+public class UserTInfoDaoImpl extends SqlSessionDaoSupport implements UserTInfoMapper {
+
+	@Override
+	public UserTInfo findByUserId(int Id) {
+		return (UserTInfo) getSqlSession().selectOne("dao.UserTInfoMapper.findByUserId");
+	}
+
+	@Override
+	public void insertUserT(UserTInfo userTInfo) {
+		getSqlSession().insert("dao.UserTInfoMapper.insertUserT", userTInfo);
+	}
+}
