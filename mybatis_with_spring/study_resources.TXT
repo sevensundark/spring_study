@@ -1,0 +1,10 @@
+﻿http://haohaoxuexi.iteye.com/blog/1843309
+
+sqlserver proxool 连接出现
+Caused by: java.lang.SecurityException: class "com.microsoft.sqlserver.jdbc.ISQLServerConnection$$FastClassByProxool$$3407f37e"'s signer information does not match signer information of other classes in the same package
+签名信息和同一包里面的另外一个类得签名信息不匹配
+
+
+原因是proxool的驱动包和sqljdbc4.jar的签名冲突，解决方法：
+
+1. 将sqljdbc4.jar包的META-INF文件夹下的三个文件  MANIFEST.MF, MSFTSIG.RSA, MSFTSIG.SF 三个文件删除即可
